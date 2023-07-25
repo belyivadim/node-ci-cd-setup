@@ -23,5 +23,15 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: npm start
-    - run: npm test
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+
+
+
+    steps:
+      - name: Tests
+        uses: actions/setup-node@v3
+      - run: npm start & npm test
+      - run: kill-port 8080
