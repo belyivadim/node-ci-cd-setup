@@ -31,8 +31,5 @@ jobs:
         run: npm test
 
       - name: Stop the Express app
-        run: npm stop
-
-      - name: Stop the Express app
         run: npx kill-port ${{ env.PORT || 8080 }}
 
