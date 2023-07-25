@@ -16,7 +16,7 @@ app.get('/api/plus-one', (req, res) => {
   })
 })
 
-app.get('/api/userd/:user_id', (req, res) => {
+app.get('/api/users/:user_id', (req, res) => {
   if (req.params.user_id >= users.length) {
     return res.sendStatus(404)
   }

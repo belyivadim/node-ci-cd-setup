@@ -23,7 +23,7 @@ it('Silly /api/plus-one?number= test', async () => {
 
 it('Silly /api/users/{user_id} test', async () => {
   await spec()
-   .get(`http://localhost:${PORT}/users/{user_id}`)
+   .get(`http://localhost:${PORT}/api/users/{user_id}`)
     .withPathParams('user_id', 0)
     .expectStatus(200)
     .expectJson({
