@@ -33,6 +33,5 @@ jobs:
     steps:
       - name: Tests
         uses: actions/setup-node@v3
-      - run: cd testing-rest-api
       - run: npm start & npm test
       - run: kill-port 8080
