@@ -10,3 +10,23 @@ it('Silly /api test', async () => {
       message: 'OK'
     })
 })
+
+it('Silly /api/plus-one?number= test', async () => {
+  await spec()
+   .get(`http://localhost:${PORT}/api/plus-one`)
+    .withQueryParams('number', 5)
+    .expectStatus(200)
+    .expectJson({
+      answer: 6
+    })
+})
+
+it('Silly /api/users/{user_id} test', async () => {
+  await spec()
+   .get(`http://localhost:${PORT}/users/{user_id}`)
+    .withPathParams('user_id', 0)
+    .expectStatus(200)
+    .expectJson({
+      username: 'Admin'
+    })
+})
