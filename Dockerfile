@@ -12,7 +12,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install the dependencies
-RUN npm install --production=false
+RUN npm install --omit=dev
 
 # Copy the rest of the application code
 COPY . .
