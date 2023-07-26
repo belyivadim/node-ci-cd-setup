@@ -30,7 +30,7 @@ jobs:
         run: npx wait-on http://localhost:${{ env.PORT || 8080 }}/api
 
       - name: Run Pactum tests inside the Docker container
-        run: docker exec --network="host" -v $PWD:/usr/src/app -w /usr/src/app -e PORT=${{ env.PORT || 8080 }} express-app npm test
+        run: docker exec -v $PWD:/usr/src/app -w /usr/src/app -e PORT=${{ env.PORT || 8080 }} express-app npm test
 
       - name: Stop and remove the running container
         run: docker stop $(docker ps -q --filter ancestor=express-app) || true
