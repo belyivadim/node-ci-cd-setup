@@ -13,12 +13,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      PORT: ${{ vars.PORT }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Build the Docker image
-        run: docker build -t express-app .
+        run: docker build -t express-app --build-arg PORT=${{ env.PORT || 8080 }} .
 
       - name: Run the express-app in a Docker container
         run: docker run -d -p ${{ env.PORT || 8080 }}:${{ env.PORT || 8080 }} express-app

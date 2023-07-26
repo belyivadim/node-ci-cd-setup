@@ -1,8 +1,9 @@
 # Use the official Node.js image as the base image
 FROM node:20
 
-# Set the PORT environment variable (default to 3000 if not provided)
-ENV PORT=3000
+# Set the PORT environment variable (default to 8080 if not provided)
+ARG PORT=8080
+ENV PORT=${PORT}
 
 # Set the working directory inside the container
 WORKDIR /usr/src/app
