@@ -14,23 +14,19 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      ADDR: "app"
       PORT: ${{ vars.PORT }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Build the Docker image
+      - name: Build the Docker image for app
         run: docker build -t express-app --build-arg PORT=${{ env.PORT || 8080 }} .
 
-      - name: Run the express-app in a Docker container
-        run: docker run -d -p ${{ env.PORT || 8080 }}:${{ env.PORT || 8080 }} express-app
+      - name: Build the Docker image for test 
+        run: docker build -t express-app-test --build-arg ADDR=${{ env.ADDR }} .
 
-      - name: Wait for the app to start
-        run: npx wait-on http://localhost:${{ env.PORT || 8080 }}/api
+      - name: Run tests with docker compose
+        run: docker-compose run test
 
-      - name: Run Pactum tests inside the Docker container
-        run: docker run --rm --network="host" -v $PWD:/usr/src/app -w /usr/src/app -e PORT=${{ env.PORT || 8080 }} express-app ls node_modules && npm test
-
-      - name: Stop and remove the running container
-        run: docker stop $(docker ps -q --filter ancestor=express-app) || true

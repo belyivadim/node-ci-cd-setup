@@ -1,10 +1,11 @@
 const { spec } = require('pactum')
 
 const PORT = process.env.PORT || 8080
+const ADDR = process.env.ADDR || 'localhost'
 
 it('Silly /api test', async () => {
   await spec()
-    .get(`http://localhost:${PORT}/api`)
+    .get(`http://${ADDR}:${PORT}/api`)
     .expectStatus(200)
     .expectJson({
       message: 'OK'
@@ -13,7 +14,7 @@ it('Silly /api test', async () => {
 
 it('Silly /api/plus-one?number= test', async () => {
   await spec()
-   .get(`http://localhost:${PORT}/api/plus-one`)
+   .get(`http://${ADDR}:${PORT}/api/plus-one`)
     .withQueryParams('number', 5)
     .expectStatus(200)
     .expectJson({
@@ -23,7 +24,7 @@ it('Silly /api/plus-one?number= test', async () => {
 
 it('Silly /api/users/{user_id} test', async () => {
   await spec()
-   .get(`http://localhost:${PORT}/api/users/{user_id}`)
+   .get(`http://${ADDR}:${PORT}/api/users/{user_id}`)
     .withPathParams('user_id', 0)
     .expectStatus(200)
     .expectJson({

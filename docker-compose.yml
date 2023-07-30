@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  app:
+    image: express-app
+    container_name: app
+    networks:
+      - test-net
+    expose:
+      - "8080"
+
+  test:
+    image: express-app-test
+    container_name: test
+    networks:
+      - test-net
+    expose:
+      - "8080"
+    depends_on:
+      - app
+
+networks:
+  test-net:
+    name: test-net
+    driver: bridge
