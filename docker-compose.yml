@@ -7,7 +7,7 @@ services:
     networks:
       - test-net
     expose:
-      - "8080"
+      - "5000"
 
   test:
     image: express-app-test
@@ -15,7 +15,7 @@ services:
     networks:
       - test-net
     expose:
-      - "8080"
+      - "5000"
     depends_on:
       - app
 
