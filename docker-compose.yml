@@ -7,15 +7,13 @@ services:
     networks:
       - test-net
     expose:
-      - "5000"
+      - "8080"
 
   test:
     image: express-app-test
     container_name: test
     networks:
       - test-net
-    expose:
-      - "5000"
     depends_on:
       - app
 
