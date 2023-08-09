@@ -31,3 +31,10 @@ it('Silly /api/users/{user_id} test', async () => {
       username: 'Admin'
     })
 })
+
+it('Try db connection /api/movies/', async () => {
+  await spec()
+   .get(`http://${ADDR}:${PORT}/api/movies`)
+    .expectStatus(200)
+})
+

@@ -27,6 +27,14 @@ app.get('/api/users/:user_id', (req, res) => {
 })
 
 
+dbContext = require('./database/db')
+
+app.get('/api/movies', async (req, res) => {
+  const result = await dbContext.getAllMovies()
+  res.status(result.status).json(result.body)
+})
+
+
 const PORT = process.env.PORT || 8080
 
 app.listen(PORT, () => {

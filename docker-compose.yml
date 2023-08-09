@@ -2,20 +2,50 @@ version: "3"
 
 services:
   app:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
     image: express-app
     container_name: app
     networks:
       - test-net
-    expose:
-      - "8080"
+    ports:
+      - "0.0.0.0:8080:8080"
+    depends_on:
+      - pg_db
+    env_file:
+      - db.env
 
   test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
     image: express-app-test
     container_name: test
     networks:
       - test-net
     depends_on:
       - app
+
+  pg_db:
+    build:
+      context: .
+      dockerfile: Dockerfile.postgres
+    image: "pg_db"
+    container_name: pg_db
+    volumes:
+      - db:/data/pg_db
+    ports:
+      - "5433:5432"
+    restart: unless-stopped
+    env_file:
+      - db.env  
+    networks:
+      - test-net
+
+volumes:
+  db:
+    # external: true
 
 networks:
   test-net:
